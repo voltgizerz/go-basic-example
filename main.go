@@ -1,71 +1,21 @@
 package main
 
 import (
-	"sync"
-	"time"
-
 	"github.com/voltgizerz/go-concurrent/config"
 )
 
+var (
+	log = config.SetupLog()
+)
+
 func main() {
-	start := time.Now()
-	log := config.SetupLog()
+	// Concurrent
+	// StartConcurrent()
 
-	number := 0
-	var wg sync.WaitGroup
-	var mut sync.Mutex
-
-	wg.Add(5)
-	go func() {
-		defer wg.Done()
-
-		mut.Lock()
-		for i := 0; i < 100000; i++ {
-			number++
-		}
-		mut.Unlock()
-	}()
-
-	go func() {
-		defer wg.Done()
-
-		mut.Lock()
-		for i := 0; i < 100000; i++ {
-			number++
-		}
-		mut.Unlock()
-	}()
-
-	go func() {
-		defer wg.Done()
-
-		mut.Lock()
-		for i := 0; i < 100000; i++ {
-			number++
-		}
-		mut.Unlock()
-	}()
-
-	go func() {
-		defer wg.Done()
-
-		mut.Lock()
-		for i := 0; i < 100000; i++ {
-			number++
-		}
-		mut.Unlock()
-	}()
-
-	go func() {
-		defer wg.Done()
-		mut.Lock()
-		for i := 0; i < 100000; i++ {
-			number++
-		}
-		mut.Unlock()
-	}()
-	wg.Wait()
-
-	log.Printf("Number printed %d, took %v\n", number, time.Since(start))
-	log.Println("All process finished")
+	// Generics
+	log.Println(toString(42))          // "42"
+	log.Println(toString(int32(42)))   // "42"
+	log.Println(toString(int64(42)))   // "42"
+	log.Println(isEqual("asd", "Asd")) // false
+	log.Println(isEqual(1, 1))         // true
 }
